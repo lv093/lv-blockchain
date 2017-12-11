@@ -27,6 +27,10 @@ public class BlockService {
         }
     }
 
+    private Block getFristBlock() {
+        return new Block(1, "0", System.currentTimeMillis(), "Hello Block", "aa212344fc10ea0a2cb885078fa9bc2354e55efc81be8f56b66e4a837157662e");
+    }
+
     private Block getLatestBlock() {
         if (blockChain.isEmpty()) {
             return null;
