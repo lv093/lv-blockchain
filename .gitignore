@@ -1,0 +1,7 @@
+*.iml
+.idea/
+logs/
+target/
+dist/
+application.pid
+logs.home_IS_UNDEFINED
