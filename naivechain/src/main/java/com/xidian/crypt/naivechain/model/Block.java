@@ -2,23 +2,27 @@ package com.xidian.crypt.naivechain.model;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * @author: LvLiuWei
  * @date: 2017/12/11.
  */
 @Data
 public class Block {
-    private Integer index;
+    private Integer blockIndex;
+    private String blockHash;
+    private String blockData;
+    private Long createTime;
+    private Integer preIndex;
     private String preHash;
-    private Long timestamp;
-    private String data;
-    private String hash;
+    private Date saveTime;
 
-    public Block(Integer index, String preHash, Long timestamp, String data, String hash) {
-        this.index = index;
+    public Block(Integer blockIndex, String preHash, Long createTime, String blockData, String blockHash) {
+        this.blockIndex = blockIndex;
         this.preHash = preHash;
-        this.timestamp = timestamp;
-        this.data = data;
-        this.hash = hash;
+        this.createTime = createTime;
+        this.blockData = blockData;
+        this.blockHash = blockHash;
     }
 }

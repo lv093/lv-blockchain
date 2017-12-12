@@ -1,68 +1,39 @@
 package com.xidian.crypt.naivechain.service;
 
-import com.xidian.crypt.naivechain.commons.CryptUtils;
 import com.xidian.crypt.naivechain.model.Block;
-import lombok.Data;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * @author: LvLiuWei
- * @date: 2017/12/11.
+ * @date: 2017/12/12.
  */
-@Data
-public class BlockService {
+public interface BlockService {
 
-    private Logger log = LoggerFactory.getLogger(BlockService.class);
+    /**
+     * 新增Block
+     * first check validation of the block to be added.
+     * if true insert the block to mysql and return true;
+     * else return false.
+     * @param block
+     * @return
+     */
+    boolean addBlock(Block block);
 
-    private List<Block> blockChain;
+    /**
+     * query mysql to get the first block
+     * @return
+     */
+    Block getFirstBlock();
 
+    /**
+     * query mysql to get the latest block
+     * @return
+     */
+    Block getLatestBlock();
 
-    public void addBlock(Block newBlock) {
-        Block latestBlock = this.getLatestBlock();
-        if (this.isValidNewBlock(newBlock,latestBlock)) {
-            blockChain.add(newBlock);
-        }
-    }
-
-    private Block getFristBlock() {
-        return new Block(1, "0", System.currentTimeMillis(), "Hello Block", "aa212344fc10ea0a2cb885078fa9bc2354e55efc81be8f56b66e4a837157662e");
-    }
-
-    private Block getLatestBlock() {
-        if (blockChain.isEmpty()) {
-            return null;
-        }
-        return blockChain.get(blockChain.size()-1);
-    }
-
-    private boolean isValidNewBlock(Block newBlock, Block latestBlock) {
-        if (latestBlock.getIndex()+1 != newBlock.getIndex()) {
-            log.debug("invalid block index->{}.", newBlock);
-            return false;
-        } else if (!latestBlock.getHash().equals(newBlock.getPreHash())) {
-            log.debug("invalid block previous hash->{}.", newBlock);
-            return false;
-        } else {
-            String hash = this.calculateHash(newBlock);
-            if (!hash.equals(newBlock.getHash())) {
-                log.debug("calculate block hash error->{}.", newBlock);
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private String calculateHash(Block block) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(block.getIndex())
-                .append(block.getPreHash())
-                .append(block.getTimestamp())
-                .append(block.getData());
-        return CryptUtils.getSHA256(builder.toString());
-    }
-
-
+    /**
+     * query mysql to get block at the blockIndex position
+     * @param blockIndex
+     * @return
+     */
+    Block getBlock(Integer blockIndex);
 }
