@@ -12,6 +12,8 @@
     <modules>
         <module>naivechain</module>
         <module>lv-eureka</module>
+        <module>naivechain-p2p</module>
+        <module>naivechain-component</module>
     </modules>
 
     <properties>
