@@ -9,14 +9,16 @@ import lombok.Data;
 @Data
 public class Block {
 
-    private Integer version;
-
+    /**
+     * use UUID as an index
+     */
     private String index;
+
+    private Integer version;
 
     private Long timestamp;
 
     private Long nonce;
-
 
     private Transaction transaction;
 }
