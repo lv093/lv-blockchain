@@ -11,6 +11,7 @@ import java.net.Socket;
 /**
  * @author LvLiuWei
  * @date 2018/2/3.
+ * PeerTask Thread listening for receiving message from adjacent Peer
  */
 public class PeerTask implements Runnable {
 
